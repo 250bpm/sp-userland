@@ -11,7 +11,7 @@
 int main (int argc, char *argv[])
 {
     int sock, rc;
-
+    
     if (argc < 3) {
         fprintf (stderr, "usage: test-sendmsg HOST PORT\n");
         exit (1);
@@ -36,12 +36,13 @@ int main (int argc, char *argv[])
         printf ("connect() failed: %s\n", strerror (errno));
     freeaddrinfo (res);
 
+    char buffer[1234];
     ssize_t nbytes;
-    nbytes = send (sock, "Hello", 5, 0);
+    nbytes = recv (sock, buffer, sizeof buffer, 0);
     if (nbytes < 0)
-        printf ("send() failed: %s\n", strerror (errno));
-    else if (nbytes != 5)
-        printf ("send() sent only %d bytes\n", (int)nbytes);
+        printf ("recv() failed: %s\n", strerror (errno));
+    else
+        printf ("recv() returned %d bytes\n", (int)nbytes);
 
     rc = close (sock);
     if (rc < 0)

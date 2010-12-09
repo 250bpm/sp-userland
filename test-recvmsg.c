@@ -17,7 +17,7 @@ int main (int argc, char *argv[])
         exit (1);
     }
 
-    sock = socket (PF_SP, SOCK_PUB, 0);
+    sock = socket (PF_SP, SOCK_SUB, 0);
     if (sock < 0)
         printf ("socket() failed: %s\n", strerror (errno));
 
@@ -41,8 +41,11 @@ int main (int argc, char *argv[])
     nbytes = recv (sock, buffer, sizeof buffer, 0);
     if (nbytes < 0)
         printf ("recv() failed: %s\n", strerror (errno));
-    else
+    else {
         printf ("recv() returned %d bytes\n", (int)nbytes);
+        buffer[nbytes] = 0;
+        printf ("received <%s>\n", buffer);
+    }
 
     rc = close (sock);
     if (rc < 0)

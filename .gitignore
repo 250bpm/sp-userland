@@ -1,0 +1,6 @@
+test-bind
+test-create
+test-recvmsg
+test-sendmsg
+test-sendmany
+.*.swp

@@ -24,7 +24,7 @@ int main (int argc, char *argv[])
 	struct sockaddr_sp addr;
 	char buffer[1024];
 	ssize_t nbytes;
-	int n; 						/* Message ID counter */
+	int n = 1; 					/* Message ID counter */
 	
 	if (argc < 2) {
 		fprintf (stderr, "usage: fanout_server ENDPOINT\n");

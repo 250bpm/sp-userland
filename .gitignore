@@ -1,6 +1,3 @@
-test-bind
-test-create
-test-recvmsg
-test-sendmsg
-test-sendmany
+fanout_server
+fanout_client
 .*.swp

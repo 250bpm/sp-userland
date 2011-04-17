@@ -1,17 +1,49 @@
 SP proof of concept userland examples
 -------------------------------------
 
-This directory contains a simple fanout server and client for use with the
-proof of concept SP implementation at git@github.com:sustrik/linux-2.6.git
+This directory contains examples for use with the proof of concept
+SP implementation at git@github.com:sustrik/linux-2.6.git
 
-To run the demonstration, build the files with 'make' and then start a server,
-for example:
+To run the demonstration, build the files with 'make' first, then start one
+of following tests:
 
-  $ ./fanout_server tcp://0.0.0.0:1111
+PUB/SUB test
+------------
+
+First, start the publishing server:
+
+  $ ./pubsub_server tcp://0.0.0.0:1111
 
 You can then start and stop as many clients as you like:
 
-  $ ./fanout_client tcp://127.0.0.1:1111
+  $ ./pubsub_client tcp://127.0.0.1:1111
 
-The server will send a message each time <ENTER> is pressed.
+The server will send a message each time <ENTER> is pressed. The message gets
+distributed to all the clients.
+
+REQ/REP test
+------------
+
+First, start the server:
+
+  $ ./reqrep_server tcp://0.0.0.0:1111
+
+You can then start as many clients as you like. Each client sends its process ID
+to the server which the send it back the original client:
+
+  $ ./reqrep_client tcp://127.0.0.1:1111
+
+PUSH/PULL test
+--------------
+
+First, start the server:
+
+  $ ./pushpull_server tcp://0.0.0.0:1111
+
+You can then start and stop as many clients as you like:
+
+  $ ./pushpull_client tcp://127.0.0.1:1111
+
+The server will send a message each time <ENTER> is pressed. The messages get
+load-balanced among individual clients.
 

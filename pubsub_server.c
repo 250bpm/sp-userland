@@ -2,9 +2,9 @@
  * SP: An implementation of SP sockets.
  *
  * fanout_server: An example server which sends messages to one or more
- * instances of fanout_client.
+ * instances of pubsub_client.
  *
- * Author: Martin Lucina <mato@kotelna.sk>
+ * Author: Martin Lucina <mato@kotelna.sk>, Martin Sustrik <sustrik@250bpm.com>
  * Copyright 2011 VMware, Inc.
  */
 #include <stdlib.h>
@@ -27,13 +27,12 @@ int main (int argc, char *argv[])
 	int n = 1; 					/* Message ID counter */
 	
 	if (argc < 2) {
-		fprintf (stderr, "usage: fanout_server ENDPOINT\n");
+		fprintf (stderr, "usage: pubsub_server ENDPOINT\n");
 		exit (1);
 	}
 
-	/* Create an SP socket. The proof of concept has only a single socket
-	   type, so 0 is supplied. */
-	sock = socket (PF_SP, 0, 0);
+	/* Create an SP socket. */
+	sock = socket (PF_SP, SOCK_PUB, 0);
 	if (sock < 0) {
 		fprintf (stderr, "socket() failed: %s\n", strerror (errno));
 		exit (1);

@@ -1,4 +1,5 @@
-all: fanout_server fanout_client
+all: pushpull_server pushpull_client pubsub_server pubsub_client reqrep_server reqrep_client
+
 
 clean:
-	$(RM) fanout_server fanout_client
+	$(RM) pushpull_server pushpull_client pubsub_server pubsub_client reqrep_server reqrep_client

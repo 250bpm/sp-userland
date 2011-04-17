@@ -1,7 +1,8 @@
 /*
  * SP: An implementation of SP sockets.
  *
- * fanout_client: An example client which receives messages from fanout_server.
+ * pushpull_client: An example client which receives messages from
+ * pushpull_server.
  *
  * Author: Martin Lucina <mato@kotelna.sk>
  * Copyright 2011 VMware, Inc.
@@ -25,13 +26,12 @@ int main (int argc, char *argv[])
 	ssize_t nbytes;
 	
 	if (argc < 2) {
-		fprintf (stderr, "usage: fanout_client ENDPOINT\n");
+		fprintf (stderr, "usage: pushpull_client ENDPOINT\n");
 		exit (1);
 	}
 
-	/* Create an SP socket. The proof of concept has only a single socket
-	   type, so 0 is supplied. */
-	sock = socket (PF_SP, 0, 0);
+	/* Create an SP socket. */
+	sock = socket (PF_SP, SOCK_PULL, 0);
 	if (sock < 0) {
 		fprintf (stderr, "socket() failed: %s\n", strerror (errno));
 		exit (1);

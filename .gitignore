@@ -1,3 +1,8 @@
-fanout_server
-fanout_client
+*_server
+*_client
 .*.swp
+tests/build
+tests/core*.gz
+tests/spcore*.gz
+tests/bzImage
+

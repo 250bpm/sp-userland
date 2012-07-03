@@ -8,7 +8,7 @@
 #define _LINUX_SP_H
 
 /* For userspace we need to define the AF here */
-#define AF_SP           38
+#define AF_SP           40
 #define PF_SP           AF_SP
 
 /* SP socket types */

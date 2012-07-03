@@ -30,19 +30,26 @@ cd $BUILD_DIR
 zcat ../core64.gz | sudo cpio -i -H newc -d
 
 cd $KERNEL
-make clean
-make mrproper
-make defconfig
-echo "CONFIG_SP=y" >> .config
+if [ ! -e .config ]
+then
+    make defconfig
+    echo "CONFIG_SP=y" >> .config
+    echo "CONFIG_SQUASHFS=y" >> .config
+fi
 make -j8 bzImage
 make modules
 sudo make INSTALL_MOD_PATH=$BUILD_DIR modules_install firmware_install
 
 cp $KERNEL/arch/x86_64/boot/bzImage $HERE
-cd $HERE/..
-sudo cp *_client *_server $BUILD_DIR/bin
 
 cd $BUILD_DIR
+sudo mkdir home/tc/sp-userland
+cd ../..
+make clean
+make LDFLAGS=-static
+cd $BUILD_DIR
+sudo cp ../../* home/tc/sp-userland
+
 sudo find | sudo cpio -o -H newc | gzip -2 > ../spcore64.gz
 cd $HERE
 echo "Starting VM with display $DISPLAY"
